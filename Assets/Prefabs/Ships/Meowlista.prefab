@@ -54,6 +54,7 @@ GameObject:
   - component: {fileID: 114548569713540458}
   - component: {fileID: 114432565996972970}
   - component: {fileID: 114976316908333728}
+  - component: {fileID: 114934696761652108}
   m_Layer: 0
   m_Name: MeowlistaGunL
   m_TagString: Untagged
@@ -349,6 +350,7 @@ GameObject:
   - component: {fileID: 114275193015227594}
   - component: {fileID: 114917504210923076}
   - component: {fileID: 114389048864899768}
+  - component: {fileID: 114596998591591172}
   m_Layer: 0
   m_Name: MeowlistaMain
   m_TagString: Untagged
@@ -399,6 +401,7 @@ GameObject:
   - component: {fileID: 114976969135591584}
   - component: {fileID: 114032325816531004}
   - component: {fileID: 114338502392501002}
+  - component: {fileID: 114310363729993448}
   m_Layer: 0
   m_Name: MeowlistaGunR
   m_TagString: Untagged
@@ -1019,6 +1022,27 @@ MonoBehaviour:
     i15: 179
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114310363729993448
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1965946046387338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 3
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &114338502392501002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1126,6 +1150,27 @@ MonoBehaviour:
     i15: 179
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114596998591591172
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1939701120295912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 3
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &114890237218167550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1177,6 +1222,27 @@ MonoBehaviour:
   waitPotentialShoot: 5
   minBounds: {x: -20, y: -9}
   maxBounds: {x: 20, y: 9}
+--- !u!114 &114934696761652108
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1070209901301628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 3
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!114 &114976316908333728
 MonoBehaviour:
   m_ObjectHideFlags: 1
