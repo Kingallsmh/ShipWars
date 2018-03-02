@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class StatusScript : NetworkBehaviour {
+public class StatusScript : MonoBehaviour {
 
     public bool canBeHit = true;
     public float invincibleWait = 2f;
-    public int maxHealth = 10, health;
-    public List<MeshRenderer> affectedByDmgObjects;
+    public int maxHealth = 10;
+    public int health;
+    public MeshRenderer affectedByDmg;
+    public SkinnedMeshRenderer affectedByDmgSkinned;
     public Material flashMat;
+
+    public NetworkEntityInterpret NEI;
 
 	// Use this for initialization
 	void Start () {
         Heal();
+        //TakeDmg(1);
 	}
 
     public void Heal(){
@@ -27,17 +32,22 @@ public class StatusScript : NetworkBehaviour {
         }
     }
 
+    //TODO make able to work with varying types of entities
     public void TakeDmg(int amount){
         if(!canBeHit){
             return;
         }
         StartCoroutine(InvicibleTime());
-        if(affectedByDmgObjects != null){
-            StartCoroutine(FlashingDmgIndicator(0.1f));
+
+        if(NEI){
+            NEI.health -= amount;
         }
-        health -= amount;
-        if(health < 0){
-            health = 0;
+        else{
+            if (affectedByDmg || affectedByDmgSkinned)
+            {
+                StartCoroutine(FlashingDmgIndicator(0.1f));
+                health -= amount;
+            }
         }
     }
 
@@ -47,24 +57,50 @@ public class StatusScript : NetworkBehaviour {
         canBeHit = true;
     }
 
-    IEnumerator FlashingDmgIndicator(float flashLength){
-        List<Material> matlist = new List<Material>();
-        for (int i = 0; i < affectedByDmgObjects.Count; i++){
-            matlist.Add(affectedByDmgObjects[i].material);
-        }
+    //TODO combine the invicibility timer with this method to prevent mesh materials being screwed up
+    public IEnumerator FlashingDmgIndicator(float flashLength){
+        Debug.Log("Flash!");
 
-        while(!canBeHit){
-            for (int i = 0; i < affectedByDmgObjects.Count; i++){
-                Color c = affectedByDmgObjects[i].material.color;
-                affectedByDmgObjects[i].material = flashMat;
-            }
-            yield return new WaitForSeconds(flashLength);
-            for (int i = 0; i < affectedByDmgObjects.Count; i++)
+        if (affectedByDmg)
+        {
+            Material[] matlist = affectedByDmg.materials;
+            Material[] flashlist = new Material[matlist.Length];
+            for (int i = 0; i < flashlist.Length; i++)
             {
-                Color c = affectedByDmgObjects[i].material.color;
-                affectedByDmgObjects[i].material = matlist[i];
+                flashlist[i] = flashMat;
             }
-            yield return new WaitForSeconds(flashLength);
+            while (!canBeHit)
+            {
+                for (int i = 0; i < affectedByDmg.materials.Length; i++)
+                {
+                    affectedByDmg.materials = flashlist;
+                }
+                yield return new WaitForSeconds(flashLength);
+                affectedByDmg.materials = matlist;
+                yield return new WaitForSeconds(flashLength);
+            }
+        }
+        else if (affectedByDmgSkinned)
+        {
+            Material[] matlist = affectedByDmgSkinned.materials;
+            Material[] flashlist = new Material[matlist.Length];
+            for (int i = 0; i < flashlist.Length; i++)
+            {
+                flashlist[i] = flashMat;
+            }
+            while (!canBeHit)
+            {
+                for (int i = 0; i < affectedByDmgSkinned.materials.Length; i++)
+                {
+                    affectedByDmgSkinned.materials = flashlist;
+                }
+                yield return new WaitForSeconds(flashLength);
+                affectedByDmgSkinned.materials = matlist;
+                yield return new WaitForSeconds(flashLength);
+            }
+        }
+        else{
+            Debug.LogError("Should be referencing a mesh renderer!");
         }
     }
 }

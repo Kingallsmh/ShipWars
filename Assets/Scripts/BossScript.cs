@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class BossScript : NetworkBehaviour {
+public class BossScript : MonoBehaviour {
+
+    //Turn this into an abstract script that gets inherited by a more specialized script
 
     public GameObject bossBall;
     public Transform spawnPoint;
@@ -14,23 +16,21 @@ public class BossScript : NetworkBehaviour {
     public float waitPotentialMove = 10;
     public float waitPotentialShoot = 5;
 
+    public NetworkEntityInterpret NEI;
+
     public Vector2 minBounds, maxBounds;
 
-	// Use this for initialization
-	void Start () {
+    public void Init(){
         rb = GetComponent<Rigidbody>();
         StartCoroutine(ChangeMoveOnTimer());
-        if(bossBall){
+        if (bossBall)
+        {
+            Debug.Log("IsLocal? " + NEI.AreWeLocalClient());
             StartCoroutine(FireOnTimer());
         }
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        FloatAround();
-	}
+    }
 
-    void FloatAround(){
+    public void FloatAround(){
         isWithinBounds();
     }
 
@@ -65,6 +65,7 @@ public class BossScript : NetworkBehaviour {
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 15;
 
         //NetworkServer.Spawn(bullet);
+        NEI.CmdFirBullet(bullet);
 
         // Destroy the bullet after 2 seconds
         Destroy(bullet, 2.0f);

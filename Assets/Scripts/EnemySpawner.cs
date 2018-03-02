@@ -16,8 +16,9 @@ public class EnemySpawner : NetworkBehaviour
         switch(spawner){
             case SpawnType.Minions: SpawnMinions();
                 break;
-            case SpawnType.Boss: SpawnTheBoss();
-                //StartCoroutine(SpawnBoss(5f));
+            case SpawnType.Boss: 
+                //SpawnTheBoss();
+                StartCoroutine(SpawnBoss(5f));
                 break;
         }
     }

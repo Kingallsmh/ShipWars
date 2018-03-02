@@ -544,8 +544,8 @@ Rigidbody:
   m_GameObject: {fileID: 1615787716159022}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 2
+  m_AngularDrag: 2
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -586,8 +586,8 @@ MonoBehaviour:
   m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransformSyncMode: 1
-  m_SendInterval: 0.033333335
+  m_TransformSyncMode: 3
+  m_SendInterval: 0.06666667
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
@@ -641,11 +641,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canBeHit: 1
   invincibleWait: 2
-  maxHealth: 50
+  maxHealth: 20
   health: 0
-  affectedByDmgObjects:
-  - {fileID: 23971258875649582}
+  affectedByDmg: {fileID: 23971258875649582}
+  affectedByDmgSkinned: {fileID: 0}
   flashMat: {fileID: 2100000, guid: 3ac8439b382ce4d158939ae88677715f, type: 2}
+  NEI: {fileID: 0}
 --- !u!114 &114922766255211706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -661,3 +662,6 @@ MonoBehaviour:
     type: 2}
   bulletSpawn: {fileID: 4255421964450822}
   visualAnim: {fileID: 1371209579901198}
+  speed: 40
+  minBounds: {x: -20, y: -15}
+  maxBounds: {x: 20, y: 15}
