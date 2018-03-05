@@ -7,6 +7,8 @@ public class PlayerController : NetworkBehaviour {
 
     //TODO try turning this into just a thing to read player input
 
+    Camera camToCopy;
+
     public GameObject bulletObject;
     public Transform bulletSpawn;
     Rigidbody rb;
@@ -15,12 +17,19 @@ public class PlayerController : NetworkBehaviour {
     public float speed = 10;
 
     public Vector2 minBounds, maxBounds;
+    StatusScript stats;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
         if(isLocalPlayer){
-            Camera.main.transform.parent = this.transform;
+            rb = GetComponent<Rigidbody>();
+            camToCopy = Camera.main;
+            Camera newCam = Instantiate(camToCopy);
+            newCam.transform.SetParent(this.transform);
+            newCam.enabled = true;
+            camToCopy.enabled = false;
+            stats = GetComponent<StatusScript>();
+            stats.Init();
         }
     }
 
@@ -96,5 +105,12 @@ public class PlayerController : NetworkBehaviour {
 
         // Destroy the bullet after 2 seconds
         Destroy(bullet, 2.0f);
+    }
+
+    private void OnDestroy()
+    {
+        if(camToCopy){
+            camToCopy.enabled = true;
+        }
     }
 }

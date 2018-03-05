@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 public class StatusScript : MonoBehaviour {
 
     public bool canBeHit = true;
+    bool flashing = false;
     public float invincibleWait = 2f;
     public int maxHealth = 10;
     public int health;
@@ -14,21 +15,34 @@ public class StatusScript : MonoBehaviour {
     public Material flashMat;
 
     public NetworkEntityInterpret NEI;
+    PlayerUI ui;
 
 	// Use this for initialization
-	void Start () {
+	public void Init () {
+        ui = GetComponent<PlayerUI>();
+        if(ui){
+            UIManagerScript.Instance.SetPlayerUI(ui);
+            ui.ShowUI(true);
+        }
         Heal();
         //TakeDmg(1);
 	}
 
     public void Heal(){
         health = maxHealth;
+        if(ui){
+            ui.UpdatePlayerHealth(health);
+        }
     }
 
     public void Heal(int amount){
         health += amount;
         if(health > maxHealth){
             health = maxHealth;
+        }
+        if (ui)
+        {
+            ui.UpdatePlayerHealth(health);
         }
     }
 
@@ -47,6 +61,10 @@ public class StatusScript : MonoBehaviour {
             {
                 StartCoroutine(FlashingDmgIndicator(0.1f));
                 health -= amount;
+                if (ui)
+                {
+                    ui.UpdatePlayerHealth(health);
+                }
             }
         }
     }
@@ -57,12 +75,12 @@ public class StatusScript : MonoBehaviour {
         canBeHit = true;
     }
 
-    //TODO combine the invicibility timer with this method to prevent mesh materials being screwed up
     public IEnumerator FlashingDmgIndicator(float flashLength){
         Debug.Log("Flash!");
 
-        if (affectedByDmg)
+        if (affectedByDmg && !flashing)
         {
+            flashing = true;
             Material[] matlist = affectedByDmg.materials;
             Material[] flashlist = new Material[matlist.Length];
             for (int i = 0; i < flashlist.Length; i++)
@@ -79,9 +97,11 @@ public class StatusScript : MonoBehaviour {
                 affectedByDmg.materials = matlist;
                 yield return new WaitForSeconds(flashLength);
             }
+            affectedByDmg.materials = matlist;
         }
-        else if (affectedByDmgSkinned)
+        else if (affectedByDmgSkinned && !flashing)
         {
+            flashing = true;
             Material[] matlist = affectedByDmgSkinned.materials;
             Material[] flashlist = new Material[matlist.Length];
             for (int i = 0; i < flashlist.Length; i++)
@@ -98,9 +118,8 @@ public class StatusScript : MonoBehaviour {
                 affectedByDmgSkinned.materials = matlist;
                 yield return new WaitForSeconds(flashLength);
             }
+            affectedByDmgSkinned.materials = matlist;
         }
-        else{
-            Debug.LogError("Should be referencing a mesh renderer!");
-        }
+        flashing = false;
     }
 }
