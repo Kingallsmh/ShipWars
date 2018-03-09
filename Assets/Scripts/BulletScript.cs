@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 public class BulletScript : NetworkBehaviour {
 
     public string TagToNotHit = "Nothing";
+    public float speed = 20;
 
     private void OnTriggerEnter(Collider other)
     {
