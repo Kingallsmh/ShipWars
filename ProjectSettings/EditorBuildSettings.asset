@@ -5,6 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/NetworkTesting.unity
     guid: ca63ceb325b7f476dbdb9ab5e1038dfc
+  - enabled: 1
+    path: Assets/Scenes/Warship Test.unity
+    guid: 81572b2137fde5140bb54f87239e51e9
