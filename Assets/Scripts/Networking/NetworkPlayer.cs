@@ -7,17 +7,20 @@ public class NetworkPlayer : NetworkBehaviour {
 
     public NetworkClient client;
     public ShipEntity ship;
+    ShipEntity myship;
     public Camera playerCam;
 
 	// Use this for initialization
 	void Start () {
+        //Put player in list for GameManager to keep track
+        GameManagerScript.Instance.AddPlayer(this);
+        myship = GameManagerScript.Instance.GetAShip();
         if(isLocalPlayer){
-            Debug.Log("Network client: " + NetworkManager.singleton.client.connection);
-            client = NetworkManager.singleton.client;
-            GameManagerScript.Instance.InitPlayer(this);
-        }
-        if(isClient){
-            GameManagerScript.Instance.AddPlayer(this);
+            //GameManagerScript.Instance.InitPlayer(this);
+            Camera.main.gameObject.SetActive(false);
+            playerCam.gameObject.SetActive(true);
+            CmdNetworkSpawnShip();
+            AttachCameraTo(ship.gameObject, ship.camPoint);
         }
 	}
 	
@@ -48,5 +51,11 @@ public class NetworkPlayer : NetworkBehaviour {
         playerCam.transform.parent = camAttach.transform;
         playerCam.transform.position = suggestedPos.position;
         playerCam.transform.rotation = suggestedPos.rotation;
+    }
+
+    [Command]
+    public void CmdNetworkSpawnShip(){
+        ship = Instantiate(myship);
+        NetworkServer.Spawn(ship.gameObject);
     }
 }

@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class GameManagerScript : MonoBehaviour {
+public class GameManagerScript : NetworkBehaviour {
 
     public static GameManagerScript Instance;
-    public Transform sceneCam;
-    public bool isPlayer = true;
     public List<NetworkPlayer> playerList;
     public List<EnemySpawner> playerSpawnList;
     public List<EnemySpawner> enemySpawnList;
@@ -19,25 +18,11 @@ public class GameManagerScript : MonoBehaviour {
         Instance = this;
     }
 
-    public void UnattachCamera(){
-        Camera.main.transform.parent = null;
-    }
-
-    public void ClickShip(){
-        isPlayer = true;
-    }
-
-    public void ClickViewer(){
-        isPlayer = false;
-    }
-
-    public void SpawnPlayer(NetworkPlayer player, int spot){
+    public void SpawnPlayer(NetworkPlayer player){
+        int spot = playerList.IndexOf(player);
+        Debug.Log(spot);
         player.ship.transform.position = playerSpawnList[spot].transform.position;
         player.ship.transform.rotation = playerSpawnList[spot].transform.rotation;
-    }
-
-    public void SpawnViewer(){
-        
     }
 
     public void AddPlayer(NetworkPlayer newPlayer){
@@ -51,8 +36,6 @@ public class GameManagerScript : MonoBehaviour {
 
     public void InitPlayer(NetworkPlayer newPlayer){
         GivePlayerShip(shipList[0], newPlayer);
-        newPlayer.AttachCameraTo(newPlayer.ship.gameObject, newPlayer.ship.camPoint);
-        SpawnPlayer(newPlayer, playerList.IndexOf(newPlayer));
     }
 
 	public void GivePlayerShip(ShipEntity ship, int numOfPlayer){
@@ -63,5 +46,9 @@ public class GameManagerScript : MonoBehaviour {
     public void GivePlayerShip(ShipEntity ship, NetworkPlayer player){
         //Change to selection of ship
         player.ship = Instantiate(ship);
+    }
+
+    public ShipEntity GetAShip(){
+        return shipList[0];
     }
 }

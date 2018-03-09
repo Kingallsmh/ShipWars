@@ -16,6 +16,7 @@ public class BulletScript : NetworkBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("What? Bullet was fired?");
         if (other.gameObject.tag != TagToNotHit || !ignoreList.Contains(other))
         {
             if(other.GetComponent<StatusScript>()){
