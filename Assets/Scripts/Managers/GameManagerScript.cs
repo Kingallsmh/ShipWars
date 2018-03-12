@@ -48,7 +48,7 @@ public class GameManagerScript : NetworkBehaviour {
         player.ship = Instantiate(ship);
     }
 
-    public ShipEntity GetAShip(){
-        return shipList[0];
+    public GameObject GetAShip(){
+        return shipList[0].gameObject;
     }
 }

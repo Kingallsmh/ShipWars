@@ -122,11 +122,11 @@ GameObject:
   - component: {fileID: 4714893892480486}
   - component: {fileID: 54023967568420874}
   - component: {fileID: 65922561223814244}
-  - component: {fileID: 114998827461412252}
   - component: {fileID: 114419691133591842}
   - component: {fileID: 114715731825461672}
   - component: {fileID: 114589337280266672}
-  - component: {fileID: 114367725257364022}
+  - component: {fileID: 114163751774559198}
+  - component: {fileID: 114305070728241716}
   m_Layer: 0
   m_Name: BasicShip
   m_TagString: Player
@@ -677,7 +677,39 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114367725257364022
+--- !u!114 &114163751774559198
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1522491878824432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 22
+    i1: 135
+    i2: 85
+    i3: 225
+    i4: 56
+    i5: 248
+    i6: 148
+    i7: 30
+    i8: 138
+    i9: 207
+    i10: 84
+    i11: 82
+    i12: 18
+    i13: 9
+    i14: 50
+    i15: 234
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &114305070728241716
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -689,7 +721,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 3
-  m_SendInterval: 0.07692308
+  m_SendInterval: 0.1
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
@@ -747,35 +779,3 @@ MonoBehaviour:
   bulletSpawn: {fileID: 4430845858200650}
   Fire1CD: 0.2
   Fire1OK: 1
---- !u!114 &114998827461412252
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1522491878824432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneId:
-    m_Value: 0
-  m_AssetId:
-    i0: 22
-    i1: 135
-    i2: 85
-    i3: 225
-    i4: 56
-    i5: 248
-    i6: 148
-    i7: 30
-    i8: 138
-    i9: 207
-    i10: 84
-    i11: 82
-    i12: 18
-    i13: 9
-    i14: 50
-    i15: 234
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0

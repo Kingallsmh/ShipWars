@@ -13,14 +13,16 @@ public class NetworkPlayer : NetworkBehaviour {
 	// Use this for initialization
 	void Start () {
         //Put player in list for GameManager to keep track
-        GameManagerScript.Instance.AddPlayer(this);
-        myship = GameManagerScript.Instance.GetAShip();
+        //GameManagerScript.Instance.AddPlayer(this);
+        //myship = GameManagerScript.Instance.GetAShip();
         if(isLocalPlayer){
             //GameManagerScript.Instance.InitPlayer(this);
+            SpawnShip();
             Camera.main.gameObject.SetActive(false);
             playerCam.gameObject.SetActive(true);
+            
             CmdNetworkSpawnShip();
-            AttachCameraTo(ship.gameObject, ship.camPoint);
+            Debug.Log(ship);
         }
 	}
 	
@@ -55,7 +57,26 @@ public class NetworkPlayer : NetworkBehaviour {
 
     [Command]
     public void CmdNetworkSpawnShip(){
-        ship = Instantiate(myship);
-        NetworkServer.Spawn(ship.gameObject);
+        Debug.Log("Get Ship on Server");
+        GameObject s = Instantiate(GameManagerScript.Instance.GetAShip());
+        NetworkServer.Spawn(s);
+        RpcSpawnShip(s.gameObject, netId);
+    }
+
+    [ClientRpc]
+    public void RpcSpawnShip(GameObject _ship, NetworkInstanceId id)
+    {
+        if (NetworkServer.FindLocalObject(id))
+        {
+            Debug.Log("Attach a ship to player: " + id);
+            ship = _ship.GetComponent<ShipEntity>();
+            AttachCameraTo(ship.gameObject, ship.camPoint);
+        }
+        
+    }
+
+    public void SpawnShip()
+    {
+        //ship = Instantiate(selectShip);
     }
 }
