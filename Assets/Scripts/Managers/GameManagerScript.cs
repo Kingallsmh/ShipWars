@@ -44,8 +44,18 @@ public class GameManagerScript : NetworkBehaviour {
         }
     }
 
-    public void InitPlayer(NetworkPlayerScript newPlayer){
-        GivePlayerShip(shipList[0], newPlayer);
+    public void RemoveFromPlayerList(NetworkPlayerScript player)
+    {
+        playerList.Remove(player);
+    }
+    
+    public void InitPlayer(GameObject newPlayer){
+        AddPlayer(newPlayer.GetComponent<NetworkPlayerScript>());
+    }
+    
+    public int GetPlayerNum(GameObject newPlayer)
+    {
+        return playerList.IndexOf(newPlayer.GetComponent<NetworkPlayerScript>());
     }
 
 	public void GivePlayerShip(ShipEntity ship, int numOfPlayer){
@@ -60,6 +70,11 @@ public class GameManagerScript : NetworkBehaviour {
 
     public GameObject GetAShip(){
         return shipList[0].gameObject;
+    }
+
+    public Transform GetSpawn(int spotNum)
+    {
+        return playerSpawnList[spotNum].transform;
     }
 
     public void SetGUIIP()
