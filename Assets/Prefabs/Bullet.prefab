@@ -143,6 +143,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TagToNotHit: Player
+  speed: 30
+  ignoreList: []
 --- !u!114 &114808939992642852
 MonoBehaviour:
   m_ObjectHideFlags: 1

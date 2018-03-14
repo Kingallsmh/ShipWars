@@ -37,7 +37,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4387504890184336}
   - component: {fileID: 33232392139014902}
-  - component: {fileID: 65945685460251272}
   - component: {fileID: 23795061661651976}
   m_Layer: 0
   m_Name: Cube
@@ -665,18 +664,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 1.58, z: 3.5}
   m_Center: {x: 0, y: 0, z: 0.8}
---- !u!65 &65945685460251272
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1067958680481638}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114163751774559198
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -708,7 +695,7 @@ MonoBehaviour:
     i14: 50
     i15: 234
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114305070728241716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -721,14 +708,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 3
-  m_SendInterval: 0.1
+  m_SendInterval: 0.06666667
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
   m_MovementTheshold: 0.001
   m_VelocityThreshold: 0.0001
   m_SnapThreshold: 5
-  m_InterpolateRotation: 1
+  m_InterpolateRotation: 2
   m_InterpolateMovement: 1
 --- !u!114 &114419691133591842
 MonoBehaviour:
@@ -779,3 +766,5 @@ MonoBehaviour:
   bulletSpawn: {fileID: 4430845858200650}
   Fire1CD: 0.2
   Fire1OK: 1
+  ignoreList:
+  - {fileID: 65922561223814244}

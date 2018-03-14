@@ -16,11 +16,11 @@ public class BulletScript : NetworkBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("What? Bullet was fired?");
         if (other.gameObject.tag != TagToNotHit || !ignoreList.Contains(other))
         {
+            Debug.Log(other.gameObject);
             if(other.GetComponent<StatusScript>()){
-                other.GetComponent<StatusScript>().TakeDmg(1);
+                other.GetComponent<StatusScript>().TakeDamage(1);
             }
             Destroy(gameObject);
         }

@@ -1,16 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManagerScript : MonoBehaviour {
-
-    public static UIManagerScript Instance;
+    
     PlayerUI pUI;
-
-    private void Awake()
-    {
-        Instance = this;
-    }
+    public Image HPImg;
 
     public void UpdateBossHealthOnPlayer(int health){
         pUI.UpdateBossHealth(health);
@@ -19,4 +15,6 @@ public class UIManagerScript : MonoBehaviour {
     public void SetPlayerUI(PlayerUI ui){
         pUI = ui;
     }
+
+    
 }

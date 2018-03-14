@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class BasicShip : ShipEntity {
 
@@ -9,6 +10,8 @@ public class BasicShip : ShipEntity {
     public Transform bulletSpawn;
     public float Fire1CD = 1f;
     public bool Fire1OK = true;
+
+    public List<Collider> ignoreList;
 
 	private void Start()
 	{
@@ -61,8 +64,17 @@ public class BasicShip : ShipEntity {
         transform.localRotation *= Quaternion.Euler(rotation);
 	}
 
+
 	public override void PrimaryActionFire()
 	{
+        CmdFireBullet();
+	}
+
+    [Command]
+    public void CmdFireBullet()
+    {
+        Debug.Log("What? Bullet was fired?");
+
         var b = (GameObject)Instantiate(
             bullet,
             bulletSpawn.position,
@@ -70,11 +82,18 @@ public class BasicShip : ShipEntity {
 
         // Add velocity to the bullet
         float bulletVel = b.GetComponent<BulletScript>().speed;
-        b.GetComponent<Rigidbody>().velocity = (b.transform.forward * bulletVel) + rb.velocity ;
+        b.GetComponent<BulletScript>().SetIgnoreList(ignoreList);
+        b.GetComponent<Rigidbody>().velocity = (b.transform.forward * bulletVel) + rb.velocity;
 
-        //NetworkServer.Spawn(bullet);
-
+        NetworkServer.Spawn(b);
+        RpcFireBullet(b);
         // Destroy the bullet after 2 seconds
         Destroy(b, 5f);
-	}
+    }
+
+    [ClientRpc]
+    public void RpcFireBullet(GameObject obj)
+    {
+        obj.GetComponent<BulletScript>().SetIgnoreList(ignoreList);
+    }
 }

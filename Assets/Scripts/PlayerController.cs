@@ -29,7 +29,7 @@ public class PlayerController : NetworkBehaviour {
             newCam.enabled = true;
             camToCopy.enabled = false;
             stats = GetComponent<StatusScript>();
-            stats.Init();
+            //stats.Init();
         }
     }
 

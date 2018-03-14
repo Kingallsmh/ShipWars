@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 
-public class ShipEntity : MonoBehaviour {
+public class ShipEntity : NetworkBehaviour {
     
     protected Vector3 velocity, rotation;
     public float maxSpeed = 20;

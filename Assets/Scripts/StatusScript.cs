@@ -3,39 +3,53 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class StatusScript : MonoBehaviour {
+public class StatusScript : NetworkBehaviour {
 
     public bool canBeHit = true;
     bool flashing = false;
     public float invincibleWait = 2f;
     public int maxHealth = 10;
+    [SyncVar(hook = "OnChangeHealth")]
     public int health;
     public MeshRenderer affectedByDmg;
     public SkinnedMeshRenderer affectedByDmgSkinned;
     public Material flashMat;
 
     public NetworkEntityInterpret NEI;
-    PlayerUI ui;
+    public PlayerUI ui;
+
+
+    public void Init()
+    {
+        Heal();
+    }
 
 	// Use this for initialization
-	public void Init () {
-        ui = GetComponent<PlayerUI>();
-        if(ui){
-            UIManagerScript.Instance.SetPlayerUI(ui);
+	public void Init (PlayerUI _ui) {
+        if (_ui)
+        {
+            ui = _ui;
             ui.ShowUI(true);
+            ui.UpdatePlayerHealth(health);
         }
-        Heal();
         //TakeDmg(1);
 	}
 
     public void Heal(){
-        health = maxHealth;
-        if(ui){
-            ui.UpdatePlayerHealth(health);
+        Debug.Log("Server? " + isServer);
+        if (!isServer)
+        {
+            return;
         }
+        Debug.Log("Heal!");
+        health = maxHealth;
     }
 
     public void Heal(int amount){
+        if (!isServer)
+        {
+            return;
+        }
         health += amount;
         if(health > maxHealth){
             health = maxHealth;
@@ -43,6 +57,20 @@ public class StatusScript : MonoBehaviour {
         if (ui)
         {
             ui.UpdatePlayerHealth(health);
+        }
+    }
+
+    public void TakeDamage(int amount)
+    {
+        if (!isServer || !canBeHit)
+        {
+            return;
+        }
+        health -= amount;
+        if(health < 0)
+        {
+            health = 0;
+            Debug.Log("FOOOOOOXXXXXXX!!!");
         }
     }
 
@@ -121,5 +149,14 @@ public class StatusScript : MonoBehaviour {
             affectedByDmgSkinned.materials = matlist;
         }
         flashing = false;
+    }
+
+    void OnChangeHealth(int health)
+    {
+        Debug.Log("Health of hit target: " + health);
+        if (ui)
+        {
+            ui.UpdatePlayerHealth(health);
+        }
     }
 }

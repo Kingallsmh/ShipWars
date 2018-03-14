@@ -51,6 +51,6 @@ public class NetworkEntityInterpret : NetworkBehaviour {
         for (int i = 0; i < scriptsToRun.Count; i++){
             StartCoroutine(scriptsToRun[i].GetComponent<StatusScript>().FlashingDmgIndicator(0.1f));
         }
-        UIManagerScript.Instance.UpdateBossHealthOnPlayer(newHealth);
+        GetComponent<UIManagerScript>().UpdateBossHealthOnPlayer(newHealth);
     }
 }
