@@ -17,14 +17,15 @@ public class NetworkPlayerScript : NetworkBehaviour {
         //Put player in list for GameManager to keep track
         //GameManagerScript.Instance.AddPlayer(this);
         //myship = GameManagerScript.Instance.GetAShip();
-        if(isLocalPlayer){
-            //GameManagerScript.Instance.InitPlayer(this);
+        GameManagerScript.Instance.InitPlayer(gameObject);
+        if (isLocalPlayer){            
 
             mainCam = GameManagerScript.Instance.mainCam;
             mainCam.gameObject.SetActive(false);
             playerCam.gameObject.SetActive(true);
             
-            CmdNetworkSpawnShip(netId);
+            CmdNetworkSpawnShip(netId, GameManagerScript.Instance.GetPlayerNum(gameObject));
+            Debug.Log(GameManagerScript.Instance.GetPlayerNum(gameObject));
         }
 	}
 
@@ -48,6 +49,11 @@ public class NetworkPlayerScript : NetworkBehaviour {
         }
 	}
 
+    private void OnDestroy()
+    {
+        GameManagerScript.Instance.RemoveFromPlayerList(this);
+    }
+
     public void AttachCameraTo(GameObject camAttach){
         playerCam.transform.parent = camAttach.transform;
         playerCam.transform.position = Vector3.zero;
@@ -70,10 +76,10 @@ public class NetworkPlayerScript : NetworkBehaviour {
     }
 
     [Command]
-    public void CmdNetworkSpawnShip(NetworkInstanceId id){
+    public void CmdNetworkSpawnShip(NetworkInstanceId id, int SpawnNum){
         Debug.Log("Get Ship on Server");
         Debug.Log(isServer);
-        GameObject s = Instantiate(GameManagerScript.Instance.GetAShip());
+        GameObject s = Instantiate(GameManagerScript.Instance.GetAShip(), GameManagerScript.Instance.GetSpawn(SpawnNum));
         //Before Network spawn, init() isServer is false. After, it's true.
         NetworkServer.SpawnWithClientAuthority(s, gameObject);
         s.GetComponent<StatusScript>().Init();

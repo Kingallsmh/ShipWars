@@ -22,7 +22,10 @@ public class Turret : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        FindTarget(target);
+        if (target)
+        {
+            FindTarget(target);
+        }        
     }
 
     IEnumerator FireCooldown()
