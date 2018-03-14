@@ -736,6 +736,7 @@ MonoBehaviour:
   affectedByDmgSkinned: {fileID: 0}
   flashMat: {fileID: 2100000, guid: 3ac8439b382ce4d158939ae88677715f, type: 2}
   NEI: {fileID: 0}
+  ui: {fileID: 0}
 --- !u!114 &114589337280266672
 MonoBehaviour:
   m_ObjectHideFlags: 1
