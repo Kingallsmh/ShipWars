@@ -26,7 +26,6 @@ public class PlayerUI : MonoBehaviour {
     public void SetImgHP(float currentHP)
     {
         Debug.Log("Hp: " + currentHP);
-        Rect rt = HPImg.rectTransform.rect;
-        rt.width = currentHP;
+        HPImg.rectTransform.sizeDelta = new Vector2(currentHP, HPImg.rectTransform.sizeDelta.y);
     }
 }
