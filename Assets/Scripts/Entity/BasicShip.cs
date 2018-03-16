@@ -64,7 +64,6 @@ public class BasicShip : ShipEntity {
         transform.localRotation *= Quaternion.Euler(rotation);
 	}
 
-
 	public override void PrimaryActionFire()
 	{
         CmdFireBullet();

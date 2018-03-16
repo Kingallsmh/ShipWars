@@ -10,7 +10,6 @@ public class NetworkPlayerScript : NetworkBehaviour {
     ShipEntity myship;
     public Camera playerCam;
     Camera mainCam;
-    
 
 	// Use this for initialization
 	void Start () {
@@ -33,9 +32,9 @@ public class NetworkPlayerScript : NetworkBehaviour {
         if(isLocalPlayer){
             if (ship){
                 ship.ControlLoop();
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.R))
                 {
-                    CmdUnspawnShip();
+                    CmdResetPosition(ship.gameObject);
                 }
             }
         }
@@ -48,6 +47,16 @@ public class NetworkPlayerScript : NetworkBehaviour {
             }
         }
 	}
+
+    [Command]
+    public void CmdResetPosition(GameObject _ship){
+        if(ship){
+            int spawnNum = GameManagerScript.Instance.GetPlayerNum(gameObject);
+            Transform spot = GameManagerScript.Instance.GetSpawn(spawnNum);
+            _ship.transform.position = spot.position;
+            _ship.transform.rotation = spot.rotation;
+        }
+    }
 
     private void OnDestroy()
     {
@@ -76,10 +85,10 @@ public class NetworkPlayerScript : NetworkBehaviour {
     }
 
     [Command]
-    public void CmdNetworkSpawnShip(NetworkInstanceId id, int SpawnNum){
+    public void CmdNetworkSpawnShip(NetworkInstanceId id, int spawnNum){
         Debug.Log("Get Ship on Server");
         Debug.Log(isServer);
-        GameObject s = Instantiate(GameManagerScript.Instance.GetAShip(), GameManagerScript.Instance.GetSpawn(SpawnNum));
+        GameObject s = Instantiate(GameManagerScript.Instance.GetAShip(), GameManagerScript.Instance.GetSpawn(spawnNum));
         //Before Network spawn, init() isServer is false. After, it's true.
         NetworkServer.SpawnWithClientAuthority(s, gameObject);
         s.GetComponent<StatusScript>().Init();
