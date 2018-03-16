@@ -759,7 +759,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7629921fe541b439ebeafdf5f1b7da11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   maxSpeed: 15
+=======
+  maxSpeed: 20
+>>>>>>> a3a9bd4180fe2d573c44b42594dc01cca48fff9c
   camPoint: {fileID: 4357990407308240}
   rollFactor: 3
   pitchFactor: 2
