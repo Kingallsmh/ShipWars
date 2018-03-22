@@ -20,7 +20,6 @@ public class ShipEntity : NetworkBehaviour {
     {
         rb = GetComponent<Rigidbody>();
         control = GetComponent<Controller>();
-        //NEI = GetComponent<NetworkEntityInterpret>();
         stats = GetComponent<StatusScript>();
     }
 

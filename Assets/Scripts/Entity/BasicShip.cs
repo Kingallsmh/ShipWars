@@ -72,8 +72,6 @@ public class BasicShip : ShipEntity {
     [Command]
     public void CmdFireBullet()
     {
-        Debug.Log("What? Bullet was fired?");
-
         var b = (GameObject)Instantiate(
             bullet,
             bulletSpawn.position,
