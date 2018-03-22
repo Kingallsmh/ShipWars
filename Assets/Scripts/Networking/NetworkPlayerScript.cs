@@ -109,7 +109,8 @@ public class NetworkPlayerScript : NetworkBehaviour {
         Debug.Log("NetID: " + netId);
         if (ClientScene.FindLocalObject(id))
         {
-            ClientScene.FindLocalObject(id).GetComponent<NetworkPlayerScript>().ship = _ship.GetComponent<ShipEntity>();            
+            ClientScene.FindLocalObject(id).GetComponent<NetworkPlayerScript>().ship = _ship.GetComponent<ShipEntity>();
+            _ship.transform.parent = ClientScene.FindLocalObject(id).transform;
             //AttachCameraTo(ship.gameObject, ship.camPoint);
         }
         if (netId == id && isLocalPlayer)

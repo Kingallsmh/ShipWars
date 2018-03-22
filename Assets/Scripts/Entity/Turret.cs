@@ -23,10 +23,12 @@ public class Turret : NetworkBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (target)
-        {
-            FindTarget(target);
-        }        
+        if(isServer){
+            if (target)
+            {
+                FindTarget(target);
+            }      
+        }
     }
 
     IEnumerator FireCooldown()

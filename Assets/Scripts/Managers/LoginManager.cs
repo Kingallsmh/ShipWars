@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 public class LoginManager : MonoBehaviour {
+
+    public Camera mainCam;
 
     public static LoginManager Instance;
     bool isPlayer = false;
@@ -24,7 +27,12 @@ public class LoginManager : MonoBehaviour {
         }
 	}
 
-    public void SwitchPlayerType(){
+	private void Update()
+	{
+        NetworkManagerDisconnect();
+	}
+
+	public void SwitchPlayerType(){
         isPlayer = !isPlayer;
         if(isPlayer){
             playerTypeText.text = "Current Player Type: Player";
@@ -42,5 +50,12 @@ public class LoginManager : MonoBehaviour {
 
     public int GetPlayerSelect(){
         return playerSelect;
+    }
+
+    public void NetworkManagerDisconnect(){
+        if(!GetComponent<NetworkManager>().isNetworkActive && !obj.activeSelf){
+            mainCam.gameObject.SetActive(true);
+            obj.SetActive(true);
+        }
     }
 }

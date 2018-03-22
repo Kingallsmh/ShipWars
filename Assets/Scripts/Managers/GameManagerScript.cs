@@ -27,11 +27,16 @@ public class GameManagerScript : NetworkBehaviour {
 
     private void Start()
     {
-        SetGUIIP();
-        CloseLogin();
+        
     }
 
-    public void SpawnPlayer(NetworkPlayerScript player){
+	private void OnEnable()
+	{
+        //SetGUIIP();
+        //CloseLogin();
+	}
+
+	public void SpawnPlayer(NetworkPlayerScript player){
         int spot = playerList.IndexOf(player);
         Debug.Log(spot);
         player.ship.transform.position = playerSpawnList[spot].transform.position;
