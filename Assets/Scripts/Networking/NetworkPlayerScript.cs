@@ -23,7 +23,6 @@ public class NetworkPlayerScript : NetworkBehaviour {
             playerCam.gameObject.SetActive(true);
             GameManagerScript.Instance.PutMessageInDebug(Application.platform.ToString());
             CmdNetworkSpawnShip(netId, GameManagerScript.Instance.GetPlayerNum(gameObject), LoginManager.Instance.GetPlayerSelect());
-            Debug.Log(GameManagerScript.Instance.GetPlayerNum(gameObject));
         }
 	}
 

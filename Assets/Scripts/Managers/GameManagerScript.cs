@@ -32,8 +32,8 @@ public class GameManagerScript : NetworkBehaviour {
 
 	private void OnEnable()
 	{
-        //SetGUIIP();
-        //CloseLogin();
+        SetGUIIP();
+        CloseLogin();
 	}
 
 	public void SpawnPlayer(NetworkPlayerScript player){
