@@ -67,18 +67,18 @@ public class BasicShip : ShipEntity {
 
 	public override void PrimaryActionFire()
 	{
-        CmdFireBullet();
+        CmdFireBullet(bulletSpawn.position, bulletSpawn.rotation);
 	}
 
     [Command]
-    public void CmdFireBullet()
+    public void CmdFireBullet(Vector3 clientSpawnPos, Quaternion clientSpawnRot)
     {
         Debug.Log("What? Bullet was fired?");
 
         var b = (GameObject)Instantiate(
             bullet,
-            bulletSpawn.position,
-            bulletSpawn.rotation);
+            clientSpawnPos,
+            clientSpawnRot);
 
         // Add velocity to the bullet
         float bulletVel = b.GetComponent<BulletScript>().speed;

@@ -35,7 +35,7 @@ public class NetworkPlayerScript : NetworkBehaviour {
                 ship.ControlLoop();
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    CmdUnspawnShip();
+                    ship.maxSpeed = 0;
                 }
             }
         }
