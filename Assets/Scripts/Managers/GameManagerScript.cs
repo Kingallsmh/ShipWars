@@ -34,9 +34,13 @@ public class GameManagerScript : NetworkBehaviour {
 	{
         SetGUIIP();
         CloseLogin();
+<<<<<<< HEAD
 	}
+=======
+    }
+>>>>>>> 930d15d3a5fecbb0d9130062fd78884f8513747d
 
-	public void SpawnPlayer(NetworkPlayerScript player){
+    public void SpawnPlayer(NetworkPlayerScript player){
         int spot = playerList.IndexOf(player);
         Debug.Log(spot);
         player.ship.transform.position = playerSpawnList[spot].transform.position;

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -694,6 +694,7 @@ GameObject:
   - component: {fileID: 427646307}
   - component: {fileID: 427646306}
   - component: {fileID: 427646305}
+  - component: {fileID: 427646304}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -701,6 +702,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &427646304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 427646303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 104de49a4e564466292a70e5742f2dc6, type: 2}
 --- !u!81 &427646305
 AudioListener:
   m_ObjectHideFlags: 0
@@ -723,8 +736,8 @@ Camera:
   m_GameObject: {fileID: 427646303}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.08823532, g: 0.08823532, b: 0.08823532, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -1744,6 +1757,31 @@ Prefab:
       propertyPath: mainCam
       value: 
       objectReference: {fileID: 427646307}
+    - target: {fileID: 114535713108500048, guid: 3426647c526fc5c4aa2b45d22679a50d,
+        type: 2}
+      propertyPath: m_ScreenMatchMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114535713108500048, guid: 3426647c526fc5c4aa2b45d22679a50d,
+        type: 2}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114333842784936550, guid: 3426647c526fc5c4aa2b45d22679a50d,
+        type: 2}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114333842784936550, guid: 3426647c526fc5c4aa2b45d22679a50d,
+        type: 2}
+      propertyPath: m_MatchWidthOrHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114333842784936550, guid: 3426647c526fc5c4aa2b45d22679a50d,
+        type: 2}
+      propertyPath: m_ScreenMatchMode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3426647c526fc5c4aa2b45d22679a50d, type: 2}
   m_IsPrefabParent: 0
