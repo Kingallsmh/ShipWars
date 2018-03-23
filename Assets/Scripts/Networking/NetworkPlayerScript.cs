@@ -10,7 +10,6 @@ public class NetworkPlayerScript : NetworkBehaviour {
     ShipEntity myship;
     public Camera playerCam;
     Camera mainCam;
-    
 
 	// Use this for initialization
 	void Start () {
@@ -18,13 +17,12 @@ public class NetworkPlayerScript : NetworkBehaviour {
         //GameManagerScript.Instance.AddPlayer(this);
         //myship = GameManagerScript.Instance.GetAShip();
         GameManagerScript.Instance.InitPlayer(gameObject);
-        if (isLocalPlayer){            
-
+        if (isLocalPlayer){ 
             mainCam = GameManagerScript.Instance.mainCam;
             mainCam.gameObject.SetActive(false);
             playerCam.gameObject.SetActive(true);
-            
-            CmdNetworkSpawnShip(netId, GameManagerScript.Instance.GetPlayerNum(gameObject));
+            GameManagerScript.Instance.PutMessageInDebug(Application.platform.ToString());
+            CmdNetworkSpawnShip(netId, GameManagerScript.Instance.GetPlayerNum(gameObject), LoginManager.Instance.GetPlayerSelect());
             Debug.Log(GameManagerScript.Instance.GetPlayerNum(gameObject));
         }
 	}
@@ -33,9 +31,13 @@ public class NetworkPlayerScript : NetworkBehaviour {
         if(isLocalPlayer){
             if (ship){
                 ship.ControlLoop();
-                if (Input.GetKeyDown(KeyCode.Space))
+                if (Input.GetKeyDown(KeyCode.R))
                 {
+<<<<<<< HEAD
                     ship.maxSpeed = 0;
+=======
+                    CmdResetPosition(ship.gameObject);
+>>>>>>> 652f031d5c8868f487c98cfd6361f38f0ef7d06c
                 }
             }
         }
@@ -48,6 +50,16 @@ public class NetworkPlayerScript : NetworkBehaviour {
             }
         }
 	}
+
+    [Command]
+    public void CmdResetPosition(GameObject _ship){
+        if(ship){
+            int spawnNum = GameManagerScript.Instance.GetPlayerNum(gameObject);
+            Transform spot = GameManagerScript.Instance.GetSpawn(spawnNum);
+            _ship.transform.position = spot.position;
+            _ship.transform.rotation = spot.rotation;
+        }
+    }
 
     private void OnDestroy()
     {
@@ -76,13 +88,21 @@ public class NetworkPlayerScript : NetworkBehaviour {
     }
 
     [Command]
-    public void CmdNetworkSpawnShip(NetworkInstanceId id, int SpawnNum){
+    public void CmdNetworkSpawnShip(NetworkInstanceId id, int spawnNum, int numOfShip){
         Debug.Log("Get Ship on Server");
         Debug.Log(isServer);
-        GameObject s = Instantiate(GameManagerScript.Instance.GetAShip(), GameManagerScript.Instance.GetSpawn(SpawnNum));
+        GameObject s;
+        if(numOfShip == 0){
+           s  = Instantiate(GameManagerScript.Instance.GetAShip(numOfShip));
+        }
+        else{
+            s = Instantiate(GameManagerScript.Instance.GetAShip(numOfShip), GameManagerScript.Instance.GetSpawn(spawnNum));
+        }
         //Before Network spawn, init() isServer is false. After, it's true.
         NetworkServer.SpawnWithClientAuthority(s, gameObject);
-        s.GetComponent<StatusScript>().Init();
+        if(s.GetComponent<StatusScript>()){
+            s.GetComponent<StatusScript>().Init();
+        }
         RpcSpawnShip(s.gameObject, id);
     }
 
@@ -93,7 +113,8 @@ public class NetworkPlayerScript : NetworkBehaviour {
         Debug.Log("NetID: " + netId);
         if (ClientScene.FindLocalObject(id))
         {
-            ClientScene.FindLocalObject(id).GetComponent<NetworkPlayerScript>().ship = _ship.GetComponent<ShipEntity>();            
+            ClientScene.FindLocalObject(id).GetComponent<NetworkPlayerScript>().ship = _ship.GetComponent<ShipEntity>();
+            _ship.transform.parent = ClientScene.FindLocalObject(id).transform;
             //AttachCameraTo(ship.gameObject, ship.camPoint);
         }
         if (netId == id && isLocalPlayer)
@@ -101,9 +122,13 @@ public class NetworkPlayerScript : NetworkBehaviour {
             //Because all of this only called on the client and not on the server, 
             //the syncVars will not work as they are not updated on the server
             Debug.Log("Player: " + ClientScene.FindLocalObject(id));
-            _ship.GetComponent<StatusScript>().Init(
+            if(_ship.GetComponent<StatusScript>()){
+                _ship.GetComponent<StatusScript>().Init(
                 ClientScene.FindLocalObject(id).GetComponent<PlayerUI>());
+            }
             AttachCameraTo(ship.gameObject, ship.camPoint);
+            Debug.Log("ISLocal");
+            _ship.GetComponent<ShipEntity>().Init();
         }
     }
 }

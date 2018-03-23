@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class Turret : MonoBehaviour {
+public class Turret : NetworkBehaviour {
     
     public GameObject bullet;
     public Transform turretHead, bulletSpawn;
@@ -22,10 +23,12 @@ public class Turret : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (target)
-        {
-            FindTarget(target);
-        }        
+        if(isServer){
+            if (target)
+            {
+                FindTarget(target);
+            }      
+        }
     }
 
     IEnumerator FireCooldown()
@@ -63,7 +66,6 @@ public class Turret : MonoBehaviour {
         Debug.DrawRay(bulletSpawn.position, bulletSpawn.forward * 100);
         if (Physics.Raycast(bulletSpawn.position, bulletSpawn.forward * maxRange, out hit, maxRange))
         {
-            Debug.Log("Fire?");
             if (hit.transform == obj.transform)
             {
                 FireBullet();
@@ -157,5 +159,9 @@ public class Turret : MonoBehaviour {
         //}
 
         return newList;
+    }
+
+    public void SetTarget(GameObject _target){
+        target = _target;
     }
 }

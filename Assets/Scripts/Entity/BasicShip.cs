@@ -64,7 +64,6 @@ public class BasicShip : ShipEntity {
         transform.localRotation *= Quaternion.Euler(rotation);
 	}
 
-
 	public override void PrimaryActionFire()
 	{
         CmdFireBullet(bulletSpawn.position, bulletSpawn.rotation);
@@ -73,8 +72,6 @@ public class BasicShip : ShipEntity {
     [Command]
     public void CmdFireBullet(Vector3 clientSpawnPos, Quaternion clientSpawnRot)
     {
-        Debug.Log("What? Bullet was fired?");
-
         var b = (GameObject)Instantiate(
             bullet,
             clientSpawnPos,

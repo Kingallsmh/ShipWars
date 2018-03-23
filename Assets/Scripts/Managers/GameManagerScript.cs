@@ -17,6 +17,9 @@ public class GameManagerScript : NetworkBehaviour {
     public Text textObj;
     public Text debugText;
 
+    //Just for testing
+    public List<Turret> turretList;
+
     private void Awake()
     {
         Instance = this;
@@ -24,11 +27,16 @@ public class GameManagerScript : NetworkBehaviour {
 
     private void Start()
     {
-        SetGUIIP();
-        PutMessageInDebug("Started GameManager");
+        
     }
 
-    public void SpawnPlayer(NetworkPlayerScript player){
+	private void OnEnable()
+	{
+        //SetGUIIP();
+        //CloseLogin();
+	}
+
+	public void SpawnPlayer(NetworkPlayerScript player){
         int spot = playerList.IndexOf(player);
         Debug.Log(spot);
         player.ship.transform.position = playerSpawnList[spot].transform.position;
@@ -68,8 +76,8 @@ public class GameManagerScript : NetworkBehaviour {
         player.ship = Instantiate(ship);
     }
 
-    public GameObject GetAShip(){
-        return shipList[0].gameObject;
+    public GameObject GetAShip(int num){
+        return shipList[num].gameObject;
     }
 
     public Transform GetSpawn(int spotNum)
@@ -87,5 +95,24 @@ public class GameManagerScript : NetworkBehaviour {
     public void PutMessageInDebug(string msg)
     {
         debugText.text = msg;
+    }
+
+    [Command]
+    public void CmdSetTurretToTargetPlayer(int numOfPlayer){
+        for (int i = 0; i < turretList.Count; i++){
+            turretList[i].SetTarget(playerList[numOfPlayer].ship.gameObject);
+        }
+        RpcSetTurretToTargetPlayer(numOfPlayer);
+    }
+
+    [ClientRpc]
+    public void RpcSetTurretToTargetPlayer(int numOfPlayer){
+        for (int i = 0; i < turretList.Count; i++){
+            turretList[i].SetTarget(playerList[numOfPlayer].ship.gameObject);
+        }
+    }
+
+    public void CloseLogin(){
+        LoginManager.Instance.obj.SetActive(false);
     }
 }
