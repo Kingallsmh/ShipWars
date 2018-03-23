@@ -39,7 +39,6 @@ GameObject:
   - component: {fileID: 20441452254164530}
   - component: {fileID: 124983188461700074}
   - component: {fileID: 81288270850513098}
-  - component: {fileID: 45917300480575110}
   - component: {fileID: 114973125746951790}
   m_Layer: 0
   m_Name: PlayerCam
@@ -171,8 +170,8 @@ Camera:
   m_GameObject: {fileID: 1088925505938442}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.08088237, g: 0.08088237, b: 0.08088237, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -181,11 +180,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 2000
-<<<<<<< HEAD
-  field of view: 80
-=======
   field of view: 60
->>>>>>> 652f031d5c8868f487c98cfd6361f38f0ef7d06c
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -203,14 +198,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!45 &45917300480575110
-Skybox:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1088925505938442}
-  m_Enabled: 1
-  m_CustomSkybox: {fileID: 2100000, guid: 3f1f4e24d3ab32c4da71a2d6c5e19669, type: 2}
 --- !u!81 &81288270850513098
 AudioListener:
   m_ObjectHideFlags: 1

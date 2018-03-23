@@ -33,11 +33,7 @@ public class NetworkPlayerScript : NetworkBehaviour {
                 ship.ControlLoop();
                 if (Input.GetKeyDown(KeyCode.R))
                 {
-<<<<<<< HEAD
-                    ship.maxSpeed = 0;
-=======
                     CmdResetPosition(ship.gameObject);
->>>>>>> 652f031d5c8868f487c98cfd6361f38f0ef7d06c
                 }
             }
         }
