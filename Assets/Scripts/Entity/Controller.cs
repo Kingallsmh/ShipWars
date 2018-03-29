@@ -9,6 +9,7 @@ public class Controller : MonoBehaviour {
     bool start;
 
     public void GetInput(){
+        Debug.Log("Oops");
         StickInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         btn1 = Input.GetAxis("Button1") > 0;
         btn2 = Input.GetAxis("Button2") > 0;

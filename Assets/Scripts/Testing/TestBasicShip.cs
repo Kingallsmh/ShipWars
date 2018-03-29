@@ -1,55 +1,47 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class TestBasicShip : NetworkBehaviour {
+public class TestBasicShip : MonoBehaviour {
 
+    protected Vector3 velocity, rotation;
+    public float rollFactor = 1, pitchFactor = 1;
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
     Rigidbody rb;
     public float speed = 2;
 
+    Controller control;
+
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody>();
+        control = GetComponent<Controller>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (!isLocalPlayer)
+        //Controls
+        Debug.Log(control.StickInput.x);
+        rotation = new Vector3(control.StickInput.y, 0, -control.StickInput.x);
+        rotation.z = rotation.z * rollFactor;
+        if (rotation.x > 0)
         {
-            
-            return;
+            rotation.x = rotation.x * (pitchFactor / 1.5f);
         }
-        rb.velocity = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0) * speed;
+        else
+        {
+            rotation.x = rotation.x * (pitchFactor);
+        }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            CmdFire();
-        }
+        Movement();
 	}
 
-    public override void OnStartLocalPlayer()
+    public void Movement()
     {
-        transform.Rotate(0, 180, 0);
-    }
-
-    [Command]
-    public void CmdFire()
-    {
-        var b = (GameObject)Instantiate(
-            bulletPrefab,
-            bulletSpawn.position,
-            bulletSpawn.rotation);
-
-        // Add velocity to the bullet
-        //float bulletVel = b.GetComponent<BulletScript>().speed;
-        b.GetComponent<Rigidbody>().velocity = (b.transform.forward * 30) + rb.velocity;
-
-        NetworkServer.Spawn(b);
-
-        // Destroy the bullet after 2 seconds
-        Destroy(b, 2f);
+        //Push ship forward in current facing direction at current maxSpeed
+        //rb.velocity = transform.forward * maxSpeed * 100 * Time.deltaTime;
+        //Rotate local transform
+        transform.localRotation *= Quaternion.Euler(rotation);
     }
 }

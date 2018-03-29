@@ -67,13 +67,13 @@ public class BasicShip : ShipEntity {
 	public override void PrimaryActionFire()
 	{
         CmdFireBullet(bulletSpawn.position, bulletSpawn.rotation);
-        GameManagerScript.Instance.PutMessageInDebug("Pos: " + bulletSpawn.position + " Rot: " + bulletSpawn.rotation);
+        //GameManagerScript.Instance.PutMessageInDebug("Pos: " + bulletSpawn.position + " Rot: " + bulletSpawn.rotation);
 	}
 
     [Command]
     public void CmdFireBullet(Vector3 clientSpawnPos, Quaternion clientSpawnRot)
     {
-        Debug.Log("Pos: " + clientSpawnPos + " Rot: " + clientSpawnRot);
+        //Debug.Log("Pos: " + clientSpawnPos + " Rot: " + clientSpawnRot);
         var b = (GameObject)Instantiate(
             bullet,
             clientSpawnPos,
@@ -93,7 +93,6 @@ public class BasicShip : ShipEntity {
     [ClientRpc]
     public void RpcFireBullet(GameObject obj)
     {
-        GameManagerScript.Instance.PutMessageInDebug("Pos: " + obj.transform.position + " Rot: " + obj.transform.rotation);
         obj.GetComponent<BulletScript>().SetIgnoreList(ignoreList);
     }
 }

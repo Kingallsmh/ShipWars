@@ -25,15 +25,12 @@ public class GameManagerScript : NetworkBehaviour {
         Instance = this;
     }
 
-    private void Start()
-    {
-        
-    }
-
 	private void OnEnable()
 	{
-        SetGUIIP();
-        CloseLogin();
+        if(LoginManager.Instance){
+            SetGUIIP();
+            CloseLogin();
+        }
     }
 
     public void SpawnPlayer(NetworkPlayerScript player){

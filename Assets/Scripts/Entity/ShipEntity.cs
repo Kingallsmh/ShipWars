@@ -11,7 +11,6 @@ public class ShipEntity : NetworkBehaviour {
 
     protected Rigidbody rb;
     protected Controller control;
-    protected NetworkEntityInterpret NEI;
     protected StatusScript stats;
 
     public Transform camPoint;

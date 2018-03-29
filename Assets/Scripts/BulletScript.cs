@@ -9,13 +9,16 @@ public class BulletScript : NetworkBehaviour {
     public float speed = 20;
     public List<Collider> ignoreList = new List<Collider>();
 
-    public void SetIgnoreList(List<Collider> list)
+	public void SetIgnoreList(List<Collider> list)
     {
         ignoreList = list;
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if(!isServer){
+            return;
+        }
         if (other.gameObject.tag != TagToNotHit || !ignoreList.Contains(other))
         {
             if(other.GetComponent<StatusScript>()){
