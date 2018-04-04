@@ -22,7 +22,7 @@ public class TestBasicShip : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //Controls
-        Debug.Log(control.StickInput.x);
+        //Debug.Log(control.StickInput.x);
         rotation = new Vector3(control.StickInput.y, 0, -control.StickInput.x);
         rotation.z = rotation.z * rollFactor;
         if (rotation.x > 0)
@@ -40,8 +40,8 @@ public class TestBasicShip : MonoBehaviour {
     public void Movement()
     {
         //Push ship forward in current facing direction at current maxSpeed
-        //rb.velocity = transform.forward * maxSpeed * 100 * Time.deltaTime;
+        rb.velocity = transform.forward * speed * 100 * Time.deltaTime;
         //Rotate local transform
-        transform.localRotation *= Quaternion.Euler(rotation);
+        transform.localRotation = Quaternion.Euler(rotation) * transform.localRotation;
     }
 }
